@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Hunting malware in your s3 bucket by using Alienvault threat intelligence
+  source.
+Parameters:
+  Action:
+    Default: DETECTION
+    Description: Support 'DETECTION' or 'PREVENTION' options
+    Type: String
+  AlienvaultAPIKey:
+    Description: The Alienvault OTX API key
+    Type: String
+  AlienvaultURL:
+    Default: https://otx.alienvault.com/api/v1/indicators/file/
+    Description: The Alienvault OTX API URL
+    Type: String
+  Confidence:
+    Default: '0'
+    Description: Recommended value is '0'
+    Type: String
+  LambdaLogLevel:
+    Default: info
+    Description: lambda log level(Recommended value is 'info')
+    Type: String
+  SlackChannel:
+    Description: Your slack channel(Necessary when ACTION is DETECTION)
+    Type: String
+  SlackHookURL:
+    Description: Your slack webhook URL(Necessary when ACTION is DETECTION)
+    Type: String
+  Tag:
+    Default: 'TRUE'
+    Description: Recommended value is 'TRUE'(Necessary when ACTION is DETECTION)
+    Type: String
+Resources:
+  scannerLambda:
+    Properties:
+      CodeUri: s3://s3sec-4nderson/604d26399e55c87e531747d80c2caa46
+      Description: Hunting malware in your s3 bucket.
+      Environment:
+        Variables:
+          ACTION:
+            Ref: Action
+          ALIEN_API_KEY:
+            Ref: AlienvaultAPIKey
+          ALIEN_URL:
+            Ref: AlienvaultURL
+          CONFIDENCE:
+            Ref: Confidence
+          HOOK_URL:
+            Ref: SlackHookURL
+          LOG_LEVEL:
+            Ref: LambdaLogLevel
+          SLACK_CHANNEL:
+            Ref: SlackChannel
+          TAG:
+            Ref: Tag
+      Handler: alienvault_s3.lambda_handler
+      MemorySize: 128
+      Policies:
+      - Statement:
+        - Action:
+          - s3:PutObject
+          - s3:GetObject
+          Effect: Allow
+          Resource:
+          - '*'
+        Version: '2012-10-17'
+      Runtime: python3.6
+      Timeout: 10
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31

@@ -81,5 +81,5 @@ def lambda_handler(event, context):
 
     return {
         "statusCode": 200,
-        "body": json.dumps('Virus scan done!')
+        "body": json.dumps('Scan complete!')
     }

@@ -36,4 +36,8 @@ Lambda's enviroment variables:
 Follow 'https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html' and trigger the lambda function we create.
 
 # Quick start using cloudformation.
-TBD.
+[![Diagram](images/cfn.png)](https://ap-northeast-1.console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/create/review
+   ?templateURL=https://s3-ap-northeast-1.amazonaws.com/s3sec-4nderson/packaged.yml)
+
+# Quick start using SAM(severless application model).
+Use the sam folder to deploy.
