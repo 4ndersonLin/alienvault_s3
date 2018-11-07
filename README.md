@@ -3,11 +3,12 @@ Hunting malware in your s3 bucket by Alienvault threat intelligence source.
 Have prevention and detection mode.
 
 # Diagram
-![Diagram](Diagram.png)
+![Diagram](iamges/Diagram.png)
 
 # How to use?
 ## 1. Create an Alienvault account.
 Sign up an Alienvault account then go to "https://otx.alienvault.com/api" and get api key.
+(Alienvault OTX: https://www.alienvault.com/open-threat-exchange)
 
 ## 2. Setup slack webhook(Optional, if you want to use "DECTION" mode)
 Follow 'https://api.slack.com/incoming-webhooks' to the 'Getting started with Incoming Webhooks' section's step 3.
