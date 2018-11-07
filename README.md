@@ -37,7 +37,9 @@ Follow 'https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html' 
 
 # Quick start using cloudformation.
 [![Diagram](images/cfn.png)](https://ap-northeast-1.console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/create/review?templateURL=https://s3-ap-northeast-1.amazonaws.com/s3sec-4nderson/packaged.yml)
-Note: You can easily change region by change the URL's region(such as ap-northeast-1 -> us-east-1).
+* Note: You can easily change region by change the URL's region(such as ap-northeast-1 -> us-east-1).
+* Setup S3 event trigger is not inclue so setup the S3 event manually is necessary.
 
 # Quick start using SAM(severless application model).
 Use the sam folder to deploy.
+* Setup S3 event trigger is not inclue so  setup the S3 event manually is necessary.
