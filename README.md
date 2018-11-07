@@ -3,7 +3,7 @@ Hunting malware in your s3 bucket by Alienvault threat intelligence source.
 Have prevention and detection mode.
 
 # Diagram
-![Diagram](iamges/Diagram.png)
+![Diagram](images/Diagram.png)
 
 # How to use?
 ## 1. Create an Alienvault account.
