@@ -1,0 +1,74 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Hunting malware in your s3 bucket by using Alienvault threat intelligence source.
+ 
+Parameters:
+  AlienvaultAPIKey:
+    Type: String
+    Description: The Alienvault OTX API key
+  AlienvaultURL:
+    Type: String
+    Default: 'https://otx.alienvault.com/api/v1/indicators/file/'
+    Description: The Alienvault OTX API URL
+  Action:
+    Type: String
+    Default: 'DETECTION'
+    Description: Support 'DETECTION' or 'PREVENTION' options
+  Confidence:
+    Type: String
+    Default: '0'
+    Description: Recommended value is '0'
+  SlackHookURL:
+    Type: String
+    Description: Your slack webhook URL(Necessary when ACTION is DETECTION)
+  SlackChannel:
+    Type: String
+    Description: Your slack channel(Necessary when ACTION is DETECTION)
+  LambdaLogLevel:
+    Type: String
+    Default: 'info'
+    Description: lambda log level(Recommended value is 'info')
+  Tag:
+    Type: String
+    Default: 'TRUE'
+    Description: Recommended value is 'TRUE'(Necessary when ACTION is DETECTION)
+ 
+Resources:
+
+  scannerLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: Hunting malware in your s3 bucket.
+      Handler: alienvault_s3.lambda_handler
+      Runtime: python3.6
+      MemorySize: 128
+      Timeout: 10
+      CodeUri: src/
+      Policies:
+        - Version: "2012-10-17"
+          Statement: 
+          - Effect: "Allow"
+            Action:
+              - "s3:PutObject"
+              - "s3:GetObject"
+            Resource: 
+              - "*"
+
+      Environment:
+        Variables:
+          ALIEN_API_KEY: 
+            !Ref AlienvaultAPIKey
+          ALIEN_URL: 
+            !Ref AlienvaultURL
+          ACTION: 
+            !Ref Action
+          CONFIDENCE: 
+            !Ref Confidence
+          HOOK_URL: 
+            !Ref SlackHookURL
+          SLACK_CHANNEL: 
+            !Ref SlackChannel
+          LOG_LEVEL: 
+            !Ref LambdaLogLevel
+          TAG: 
+            !Ref Tag
