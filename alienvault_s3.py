@@ -34,9 +34,8 @@ def action(detect_count,bucket_name,object_name):
         }
         response = requests.post(hook_url, data=json.dumps(slack_message), headers={'Content-Type': 'application/json'})
         if response.status_code != 200:
-            raise ValueError(
-                'Error code is: %s and the response is:\n%s'% (response.status_code, response.text)
-            )
+            logger.error('Error code is: %s and the response is:\n%s' % (response.status_code, response.text))
+
         logger.info('push to slack')
     elif int(detect_count) > int(confidence) and action_type == 'PREVENTION':
         obj = s3.Object(bucket_name, object_name)
@@ -64,6 +63,8 @@ def lambda_handler(event, context):
         file_url = alien_url + h +'/analysis' 
         headers = {'X-OTX-API-KEY': alien_apikey}
         rsp = requests.get(file_url, headers=headers)
+        if rsp.status_code != 200:
+            logger.error('Error code is: %s and the response is:\n%s' % (response.status_code, response.text))
         rsp_json = rsp.text
         rsp_dict = json.loads(rsp_json)
         
