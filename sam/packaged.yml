@@ -34,7 +34,7 @@ Parameters:
 Resources:
   scannerLambda:
     Properties:
-      CodeUri: s3://s3sec-4nderson/604d26399e55c87e531747d80c2caa46
+      CodeUri: s3://s3sec-4nderson/packaged.yml
       Description: Hunting malware in your s3 bucket.
       Environment:
         Variables:
