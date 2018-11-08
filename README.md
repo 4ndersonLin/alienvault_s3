@@ -43,3 +43,5 @@ Follow 'https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html' 
 # Quick start using SAM(severless application model).
 Use the sam folder to deploy.
 * Setup S3 event trigger is not inclue so  setup the S3 event manually is necessary.
+
+Please feel free to contact me if you have any questions. :) mailto: anderson.lin0803@gmail.com/ anderson.lin@senao.com.tw
